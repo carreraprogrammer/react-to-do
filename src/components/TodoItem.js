@@ -13,6 +13,10 @@ function TodoItem(props) {
    });
   }
 
+  const handleUpdatedDone = event => {
+    console.log(event.key)
+  };
+
  const completedStyle = {
    fontStyle: "italic",
    color: "#595959",
@@ -51,6 +55,7 @@ function TodoItem(props) {
         onChange={e => {
            props.setUpdate(e.target.value, id)
           }}
+        onKeyDown={handleUpdatedDone}
       />
     </li>
   )
