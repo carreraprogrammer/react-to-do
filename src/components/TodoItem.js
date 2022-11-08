@@ -14,8 +14,10 @@ function TodoItem(props) {
   }
 
   const handleUpdatedDone = event => {
-    console.log(event.key)
-  };
+    if (event.key === "Enter") {
+     setState({ editing: false })
+    }
+  }
 
  const completedStyle = {
    fontStyle: "italic",
