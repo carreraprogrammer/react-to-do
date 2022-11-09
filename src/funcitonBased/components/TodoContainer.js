@@ -1,11 +1,16 @@
+
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-param-reassign */
 import React, { useState, useEffect } from "react"
 import Header from "./Header"
 import InputTodo from "./InputTodo"
 import TodosList from "./TodosList"
 import { v4 as uuidv4 } from "uuid"
-import { Route, Switch } from "react-router-dom"
+import { Route, Routes } from 'react-router-dom';
 import About from "../pages/About"
 import NotMatch from "../pages/NotMatch"
+import Navbar from "./Navbar"
+import SinglePage from "../pages/SinglePage"
 
 const TodoContainer = () => {
   const [todos, setTodos] = useState(getInitialTodos())
@@ -66,20 +71,34 @@ const TodoContainer = () => {
   }, [todos])
 
   return (
-    <Route path="/">
-    <div className="container">
-      <div className="inner">
-        <Header />
-        <InputTodo addTodoProps={addTodoItem} />
-        <TodosList
-          todos={todos}
-          handleChangeProps={handleChange}
-          deleteTodoProps={delTodo}
-          setUpdate={setUpdate}
-        />
-      </div>
-    </div>
-  </Route>
+    <>
+    <Navbar />
+    <Routes>
+      <Route
+        path="/"
+        element={(
+          <div className="container">
+            <div className="inner">
+              <Header />
+              <InputTodo
+                addTodoProps={addTodoItem}
+              />
+              <TodosList
+                todos={todos}
+                handleChangeProps={handleChange}
+                deleteTodoProps={delTodo}
+                setUpdate={setUpdate}
+              />
+            </div>
+          </div>
+        )}
+      />
+      <Route path="/about" element={<About />}>
+        <Route path=":slug" element={<SinglePage />} />
+      </Route>
+      <Route path="*" element={<NotMatch />} />
+    </Routes>
+  </>
   )
 }
 
