@@ -64,6 +64,9 @@ class TodoContainer extends React.Component {
             todos: loadedTodos
           })
         }
+      };
+      componentWillUnmount() {
+        console.log("Cleaning up...")
       }
 
       render() {
